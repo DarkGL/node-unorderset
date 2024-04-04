@@ -12,3 +12,14 @@ crate-type = ["cdylib"]
 
 [dependencies]
 neon = "1"
+
+[build]
+rustflags = ["-C", "target-cpu=native"]
+
+[profile.release]
+lto = "fat"
+strip = "symbols"
+opt-level = 3
+codegen-units = 1
+incremental = false
+panic = "abort"
