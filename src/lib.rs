@@ -20,10 +20,6 @@ impl UnorderedSet {
     fn has(&self, value: &str) -> bool {
         self.inner.borrow().contains(value)
     }
-
-    fn iterate(&self) -> Vec<String> {
-        self.inner.borrow().iter().cloned().collect()
-    }
 }
 
 impl Finalize for UnorderedSet {}
@@ -50,19 +46,6 @@ impl UnorderedSet {
         let result = cx.this::<JsBox<UnorderedSet>>()?.has(&value);
         Ok(cx.boolean(result))
     }
-
-    fn js_iterate(mut cx: FunctionContext) -> JsResult<JsArray> {
-        let result = {
-            let iter = cx.this::<JsBox<UnorderedSet>>()?.iterate();
-            let js_array = JsArray::new(&mut cx, iter.len());
-            for (i, obj) in iter.into_iter().enumerate() {
-                let js_str = cx.string(obj);
-                js_array.set(&mut cx, i as u32, js_str).unwrap();
-            }
-            js_array
-        };
-        Ok(result)
-    }
 }
 
 #[neon::main]
@@ -70,7 +53,6 @@ fn main(mut cx: ModuleContext) -> NeonResult<()> {
     cx.export_function("unorderedSetNew", UnorderedSet::js_new)?;
     cx.export_function("unorderedSetAdd", UnorderedSet::js_add)?;
     cx.export_function("unorderedSetHas", UnorderedSet::js_has)?;
-    cx.export_function("unorderedSetIterate", UnorderedSet::js_iterate)?;
 
     Ok(())
 }
