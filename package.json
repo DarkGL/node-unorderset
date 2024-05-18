@@ -9,7 +9,7 @@
     "build-release": "npm run build -- --release",
     "install": "npm run build-release",
     "test": "cargo test",
-    "benchmark": "hyperfine --warmup 3 'node ./benchmark/map.js' 'node ./benchmark/set.js' 'node ./benchmark/unorder.js' 'node ./benchmark/map_numbers.js' 'node ./benchmark/set_numbers.js' 'node ./benchmark/unorder_numbers.js'",
+    "benchmark": "hyperfine --warmup 3 'node ./benchmark/map.js' 'node ./benchmark/set.js' 'node ./benchmark/unorder.js'",
     "format": "npx @biomejs/biome check --apply ./benchmark"
   },
   "author": "",

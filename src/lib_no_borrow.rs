@@ -12,6 +12,10 @@ impl UnorderedSet {
         }
     }
 
+    fn add(&mut self, value: String) {
+        self.inner.insert(value);
+    }
+
     fn has(&self, value: &str) -> bool {
         self.inner.contains(value)
     }
